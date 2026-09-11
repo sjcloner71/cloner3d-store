@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مکعب | فروشگاه محصولات پرینت سه‌بعدی</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F2F5F1;
+    --surface:#FFFFFF;
+    --ink:#16211C;
+    --ink-soft:#5C6B62;
+    --ink-faint:#93A199;
+    --border:#E1E6E1;
+    --brand:#1F6E5C;
+    --brand-dark:#164F42;
+    --brand-tint:#E7F0EC;
+    --accent:#D64545;
+    --accent-tint:#FBEAEA;
+    --gold:#C9922E;
+    --radius-s:8px;
+    --radius-m:14px;
+    --radius-l:22px;
+    --shadow:0 1px 2px rgba(22,33,28,.06);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Vazirmatn',Tahoma,sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;}
+  input,select{font-family:inherit;}
+  img,svg{display:block;}
+  ::selection{background:var(--brand);color:#fff;}
+
+  /* ---------- utility bar ---------- */
+  .utility-bar{
+    background:var(--brand-dark);
+    color:#DCEAE4;
+    font-size:.8rem;
+    text-align:center;
+    padding:6px 12px;
+    letter-spacing:.2px;
+  }
+
+  /* ---------- header ---------- */
+  header.main{
+    position:sticky;top:0;z-index:40;
+    background:var(--surface);
+    border-bottom:1px solid var(--border);
+  }
+  .header-inner{
+    max-width:1240px;margin:0 auto;
+    display:flex;align-items:center;gap:20px;
+    padding:14px 24px;
+  }
+  .logo{
+    font-size:1.5rem;font-weight:800;color:var(--brand-dark);
+    display:flex;align-items:baseline;gap:4px;flex:0 0 auto;
+  }
+  .logo span{color:var(--accent);}
+  .search-wrap{
+    flex:1 1 auto;position:relative;
+  }
+  .search-wrap input{
+    width:100%;padding:11px 44px 11px 16px;
+    border:1.5px solid var(--border);border-radius:999px;
+    font-size:.92rem;color:var(--ink);background:var(--bg);
+    transition:border-color .15s, background .15s;
+  }
+  .search-wrap input:focus{
+    outline:none;border-color:var(--brand);background:var(--surface);
+  }
+  .search-wrap svg{
+    position:absolute;right:16px;top:50%;transform:translateY(-50%);
+    width:18px;height:18px;color:var(--ink-faint);pointer-events:none;
+  }
+  .header-actions{
+    display:flex;align-items:center;gap:6px;flex:0 0 auto;
+  }
+  .icon-btn{
+    position:relative;
+    display:flex;align-items:center;gap:8px;
+    padding:9px 14px;border-radius:999px;
+    color:var(--ink);font-size:.88rem;font-weight:500;
+    transition:background .15s;
+  }
+  .icon-btn:hover{background:var(--bg);}
+  .icon-btn svg{width:20px;height:20px;color:var(--brand-dark);}
+  .cart-count{
+    position:absolute;top:2px;left:6px;
+    background:var(--accent);color:#fff;
+    font-size:.65rem;font-weight:700;
+    min-width:16px;height:16px;border-radius:999px;
+    display:flex;align-items:center;justify-content:center;padding:0 3px;
+  }
+
+  /* ---------- category chips ---------- */
+  .chip-row{
+    max-width:1240px;margin:0 auto;
+    display:flex;gap:8px;overflow-x:auto;
+    padding:12px 24px 14px;
+    scrollbar-width:none;
+  }
+  .chip-row::-webkit-scrollbar{display:none;}
+  .chip{
+    flex:0 0 auto;
+    padding:8px 18px;border-radius:999px;
+    border:1.5px solid var(--border);
+    font-size:.85rem;font-weight:500;color:var(--ink-soft);
+    background:var(--surface);
+    transition:all .15s;
+    white-space:nowrap;
+  }
+  .chip:hover{border-color:var(--brand);color:var(--brand-dark);}
+  .chip.active{
+    background:var(--brand);border-color:var(--brand);color:#fff;
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    max-width:1240px;margin:18px auto 0;padding:0 24px;
+  }
+  .hero-band{
+    background:var(--brand-dark);
+    border-radius:var(--radius-l);
+    color:#fff;
+    padding:38px 40px;
+    display:flex;align-items:center;justify-content:space-between;
+    gap:24px;flex-wrap:wrap;
+    overflow:hidden;position:relative;
+    animation:heroIn .6s ease both;
+  }
+  @keyframes heroIn{
+    from{opacity:0;transform:translateY(10px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+  .hero-band::after{
+    content:"";position:absolute;left:-40px;top:-60px;
+    width:220px;height:220px;border-radius:50%;
+    background:radial-gradient(circle,rgba(214,69,69,.35),transparent 70%);
+  }
+  .hero-text h1{
+    margin:0 0 8px;font-size:2.1rem;font-weight:800;line-height:1.3;
+  }
+  .hero-text p{
+    margin:0;color:#CFE3DB;font-size:.95rem;max-width:440px;
+  }
+  .hero-stat{
+    text-align:center;position:relative;
+  }
+  .hero-stat .num{
+    font-size:3.2rem;font-weight:800;color:#fff;line-height:1;
+  }
+  .hero-stat .label{
+    font-size:.8rem;color:#CFE3DB;margin-top:4px;
+  }
+
+  /* ---------- layout ---------- */
+  .layout{
+    max-width:1240px;margin:0 auto;padding:28px 24px 60px;
+    display:grid;grid-template-columns:230px 1fr;gap:26px;
+    align-items:start;
+  }
+  .sidebar{
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius-m);padding:20px;
+    position:sticky;top:96px;
+  }
+  .sidebar h3{
+    font-size:.9rem;font-weight:700;margin:0 0 12px;color:var(--ink);
+  }
+  .filter-group{margin-bottom:22px;}
+  .filter-group:last-child{margin-bottom:0;}
+  .radio-line{
+    display:flex;align-items:center;gap:8px;
+    padding:6px 0;font-size:.85rem;color:var(--ink-soft);
+    cursor:pointer;
+  }
+  .radio-line input{accent-color:var(--brand);width:15px;height:15px;}
+  .radio-line.active-label{color:var(--brand-dark);font-weight:600;}
+  select.filter-select{
+    width:100%;padding:9px 10px;border:1.5px solid var(--border);
+    border-radius:var(--radius-s);font-size:.85rem;color:var(--ink);
+    background:var(--bg);
+  }
+
+  .results-bar{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-bottom:16px;flex-wrap:wrap;gap:10px;
+  }
+  .results-count{font-size:.88rem;color:var(--ink-soft);}
+  .results-count b{color:var(--ink);}
+
+  .grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
+    gap:16px;
+  }
+  .card{
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius-m);padding:14px;
+    display:flex;flex-direction:column;gap:10px;
+    transition:border-color .15s, transform .15s;
+  }
+  .card:hover{border-color:var(--brand);transform:translateY(-2px);}
+  .card-media{
+    aspect-ratio:1/0.82;border-radius:var(--radius-s);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;
+  }
+  .card-media svg{width:46%;height:46%;}
+  .badge-off{
+    position:absolute;top:8px;left:8px;
+    background:var(--accent);color:#fff;font-size:.72rem;font-weight:700;
+    padding:3px 8px;border-radius:999px;
+  }
+  .card-cat{font-size:.72rem;color:var(--ink-faint);}
+  .card-title{
+    font-size:.9rem;font-weight:600;color:var(--ink);
+    min-height:2.6em;
+  }
+  .card-rating{
+    display:flex;align-items:center;gap:6px;font-size:.75rem;color:var(--ink-faint);
+  }
+  .stars{color:var(--gold);letter-spacing:1px;font-size:.8rem;}
+  .card-price-row{
+    display:flex;align-items:baseline;gap:8px;margin-top:auto;
+  }
+  .price-old{
+    font-size:.75rem;color:var(--ink-faint);text-decoration:line-through;
+  }
+  .price-now{font-size:1.02rem;font-weight:800;color:var(--ink);}
+  .price-now small{font-size:.7rem;font-weight:500;color:var(--ink-soft);}
+  .add-btn{
+    margin-top:4px;width:100%;padding:10px;border-radius:var(--radius-s);
+    background:var(--brand-tint);color:var(--brand-dark);
+    font-size:.85rem;font-weight:700;
+    transition:background .15s,color .15s;
+    display:flex;align-items:center;justify-content:center;gap:6px;
+  }
+  .add-btn:hover{background:var(--brand);color:#fff;}
+  .add-btn svg{width:16px;height:16px;}
+
+  .empty-state{
+    grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--ink-soft);
+  }
+  .empty-state svg{width:52px;height:52px;color:var(--ink-faint);margin:0 auto 14px;}
+
+  /* ---------- cart drawer ---------- */
+  .overlay{
+    position:fixed;inset:0;background:rgba(22,33,28,.4);
+    opacity:0;pointer-events:none;transition:opacity .2s;z-index:60;
+  }
+  .overlay.show{opacity:1;pointer-events:auto;}
+  .drawer{
+    position:fixed;top:0;bottom:0;left:0;width:min(400px,92vw);
+    background:var(--surface);z-index:61;
+    transform:translateX(-100%);transition:transform .25s ease;
+    display:flex;flex-direction:column;
+  }
+  .drawer.show{transform:translateX(0);}
+  .drawer-head{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 20px;border-bottom:1px solid var(--border);
+  }
+  .drawer-head h2{font-size:1.05rem;margin:0;}
+  .drawer-head button{color:var(--ink-soft);padding:4px;}
+  .drawer-head button svg{width:20px;height:20px;}
+  .drawer-body{flex:1;overflow-y:auto;padding:14px 20px;}
+  .cart-item{
+    display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--border);
+  }
+  .cart-item-media{
+    width:60px;height:60px;border-radius:var(--radius-s);flex:0 0 auto;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .cart-item-media svg{width:44%;height:44%;}
+  .cart-item-info{flex:1;display:flex;flex-direction:column;gap:6px;}
+  .cart-item-title{font-size:.85rem;font-weight:600;}
+  .cart-item-price{font-size:.82rem;color:var(--ink-soft);}
+  .qty-row{display:flex;align-items:center;gap:10px;}
+  .qty-btn{
+    width:24px;height:24px;border-radius:6px;border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;font-weight:700;
+    color:var(--ink);
+  }
+  .qty-btn:hover{background:var(--bg);}
+  .qty-val{font-size:.85rem;font-weight:600;min-width:16px;text-align:center;}
+  .remove-btn{font-size:.75rem;color:var(--accent);align-self:flex-start;}
+  .drawer-empty{
+    text-align:center;padding:60px 20px;color:var(--ink-soft);
+  }
+  .drawer-empty svg{width:48px;height:48px;color:var(--ink-faint);margin:0 auto 14px;}
+  .drawer-foot{
+    border-top:1px solid var(--border);padding:18px 20px;
+  }
+  .sum-row{
+    display:flex;justify-content:space-between;font-size:.88rem;
+    color:var(--ink-soft);margin-bottom:6px;
+  }
+  .sum-row.total{
+    font-size:1rem;font-weight:800;color:var(--ink);margin-top:8px;
+    padding-top:10px;border-top:1px dashed var(--border);
+  }
+  .checkout-btn{
+    width:100%;margin-top:14px;padding:13px;border-radius:var(--radius-s);
+    background:var(--brand);color:#fff;font-size:.92rem;font-weight:700;
+  }
+  .checkout-btn:hover{background:var(--brand-dark);}
+
+  .toast{
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--ink);color:#fff;padding:11px 22px;border-radius:999px;
+    font-size:.85rem;opacity:0;pointer-events:none;transition:all .25s;z-index:80;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  footer{
+    background:var(--brand-dark);color:#BFD8CD;text-align:center;
+    padding:26px 20px;font-size:.8rem;
+  }
+
+  @media(max-width:820px){
+    .layout{grid-template-columns:1fr;}
+    .sidebar{position:static;}
+    .header-inner{flex-wrap:wrap;}
+    .search-wrap{order:3;flex:1 1 100%;}
+    .hero-text h1{font-size:1.5rem;}
+  }
+</style>
+</head>
+<body>
+
+<div class="utility-bar">هر محصول با پرینتر سه‌بعدی و طراحی اختصاصی چاپ می‌شود | ارسال رایگان بالای ۵۰۰٬۰۰۰ تومان</div>
+
+<header class="main">
+  <div class="header-inner">
+    <div class="logo">مکعب<span>.</span></div>
+    <div class="search-wrap">
+      <input id="searchInput" type="text" placeholder="جستجوی محصول یا دسته‌بندی، مثل «گلدان» یا «فیگور»...">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn" id="cartBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h2l1.6 9.6A2 2 0 0 0 9.6 17.4h7.8a2 2 0 0 0 2-1.7L20.5 9H6.2"/><circle cx="10" cy="21" r="1.4"/><circle cx="17" cy="21" r="1.4"/></svg>
+        سبد خرید
+        <span class="cart-count" id="cartCount" style="display:none;">0</span>
+      </button>
+    </div>
+  </div>
+  <div class="chip-row" id="chipRow"></div>
+</header>
+
+<div class="hero">
+  <div class="hero-band">
+    <div class="hero-text">
+      <h1>طرح‌هایی که فقط اینجا چاپ می‌شن</h1>
+      <p>هر سفارش با پرینتر سه‌بعدی، لایه به لایه و با طراحی اختصاصی خودمون ساخته می‌شه؛ از دکوری و فیگور تا جواهرات و ابزار کاربردی.</p>
+    </div>
+    <div class="hero-stat">
+      <div class="num">۱۰۰٪</div>
+      <div class="label">دست‌ساز و چاپ سفارشی</div>
+    </div>
+  </div>
+</div>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="filter-group">
+      <h3>دسته‌بندی</h3>
+      <div id="categoryList"></div>
+    </div>
+    <div class="filter-group">
+      <h3>محدوده قیمت</h3>
+      <select class="filter-select" id="priceFilter">
+        <option value="all">همه قیمت‌ها</option>
+        <option value="0-100000">تا ۱۰۰ هزار تومان</option>
+        <option value="100000-200000">۱۰۰ تا ۲۰۰ هزار تومان</option>
+        <option value="200000-400000">۲۰۰ تا ۴۰۰ هزار تومان</option>
+        <option value="400000-999999999">بالای ۴۰۰ هزار تومان</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <h3>مرتب‌سازی</h3>
+      <select class="filter-select" id="sortFilter">
+        <option value="popular">محبوب‌ترین</option>
+        <option value="cheap">ارزان‌ترین</option>
+        <option value="expensive">گران‌ترین</option>
+        <option value="discount">بیشترین تخفیف</option>
+      </select>
+    </div>
+  </aside>
+
+  <main>
+    <div class="results-bar">
+      <div class="results-count" id="resultsCount"></div>
+    </div>
+    <div class="grid" id="productGrid"></div>
+  </main>
+</div>
+
+<footer>© ۱۴۰۴ فروشگاه مکعب — تولیدی محصولات پرینت سه‌بعدی — این یک نمونه‌ی تعاملی است</footer>
+
+<div class="overlay" id="overlay"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-head">
+    <h2>سبد خرید</h2>
+    <button id="closeDrawer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+  <div class="drawer-foot" id="drawerFoot" style="display:none;">
+    <div class="sum-row"><span>جمع کالاها</span><span id="sumItems">۰ تومان</span></div>
+    <div class="sum-row"><span>هزینه ارسال</span><span id="sumShip">رایگان</span></div>
+    <div class="sum-row total"><span>مبلغ قابل پرداخت</span><span id="sumTotal">۰ تومان</span></div>
+    <button class="checkout-btn" id="checkoutBtn">ادامه فرآیند خرید</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------------- ICONS ---------------- */
+const icons = {
+  decor: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9.5 3h5l-.9 4c1.9 1.7 3 4.1 3 6.7 0 4.2-2.8 7.7-4.6 8.8-1.8-1.1-4.6-4.6-4.6-8.8 0-2.6 1.1-5 3-6.7z"/><line x1="9" y1="3" x2="15" y2="3"/></svg>',
+  figure: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="7" r="3.3"/><path d="M6.5 20.5v-3.8a5.5 5.5 0 0 1 11 0v3.8"/></svg>',
+  organizer: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="13" width="17" height="7.5" rx="1.6"/><line x1="8" y1="13" x2="8" y2="4"/><line x1="12" y1="13" x2="12" y2="6"/><line x1="16" y1="13" x2="16" y2="8.5"/></svg>',
+  gadget: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="8.3" y="3" width="7.4" height="12.5" rx="1.6"/><path d="M5.5 21 12 17l6.5 4"/></svg>',
+  jewelry: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="14.5" r="6"/><path d="M9 8.2 12 3.5l3 4.7z"/></svg>',
+  toys: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3 20 7.5v9L12 21 4 16.5v-9z"/><path d="M4 7.5 12 12l8-4.5"/><line x1="12" y1="12" x2="12" y2="21"/></svg>',
+  lighting: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7.5 4h9l-2 6.2h-5z"/><line x1="12" y1="10.2" x2="12" y2="16.5"/><path d="M9.3 16.5h5.4l1.1 4h-7.6z"/></svg>',
+  tools: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14.8 3.3a4.6 4.6 0 0 0-6 5.9L3.3 14.7l3 3 5.5-5.5a4.6 4.6 0 0 0 5.9-6l-3 3-2-2z"/></svg>'
+};
+const catTint = {
+  decor:'#1F6E5C', figure:'#2F5D8A', organizer:'#A0692F', gadget:'#6B4E9A',
+  jewelry:'#9C4F6B', toys:'#3E8E52', lighting:'#B4486F', tools:'#4A5568'
+};
+function tintBg(hex){ return hex + '19'; } // ~10% alpha tile
+
+const categories = [
+  {key:'all', label:'همه محصولات'},
+  {key:'decor', label:'دکوری و لوازم خانه'},
+  {key:'figure', label:'مجسمه و فیگور'},
+  {key:'organizer', label:'لوازم اداری و سازماندهی'},
+  {key:'gadget', label:'اکسسوری موبایل و گجت'},
+  {key:'jewelry', label:'جواهرات و اکسسوری'},
+  {key:'toys', label:'اسباب‌بازی و فیجت'},
+  {key:'lighting', label:'روشنایی'},
+  {key:'tools', label:'ابزار و یدکی'}
+];
+
+/* ---------------- PRODUCTS ---------------- */
+const products = [
+  {id:1, title:'گلدان مارپیچی مینیمال', cat:'decor', price:185000, old:220000, rating:4.6, reviews:89},
+  {id:2, title:'جاشمعی هندسی سه‌تایی', cat:'decor', price:145000, old:null, rating:4.3, reviews:52},
+  {id:3, title:'قاب عکس لایه‌ای رومیزی', cat:'decor', price:110000, old:130000, rating:4.2, reviews:37},
+  {id:4, title:'فیگور اژدهای مفصل‌دار', cat:'figure', price:320000, old:380000, rating:4.8, reviews:210},
+  {id:5, title:'ماکت مینیاتوری شهر آینده', cat:'figure', price:890000, old:null, rating:4.5, reviews:41},
+  {id:6, title:'مجسمه رباتی دسکتاپ', cat:'figure', price:265000, old:null, rating:4.4, reviews:63},
+  {id:7, title:'جامدادی و نگهدارنده رومیزی', cat:'organizer', price:98000, old:null, rating:4.2, reviews:74},
+  {id:8, title:'سبد نظم‌دهنده ماژولار', cat:'organizer', price:165000, old:195000, rating:4.5, reviews:58},
+  {id:9, title:'پایه نگهدارنده کابل شارژر', cat:'organizer', price:45000, old:null, rating:4.0, reviews:33},
+  {id:10, title:'پایه رومیزی گوشی و تبلت', cat:'gadget', price:125000, old:null, rating:4.6, reviews:132},
+  {id:11, title:'هولدر مگنتی گوشی برای خودرو', cat:'gadget', price:88000, old:105000, rating:4.3, reviews:47},
+  {id:12, title:'استند هدفون طرح هندسی', cat:'gadget', price:110000, old:null, rating:4.4, reviews:29},
+  {id:13, title:'آویز گردنبند طرح فرکتال', cat:'jewelry', price:155000, old:null, rating:4.5, reviews:66},
+  {id:14, title:'انگشتر پارامتریک رزینی', cat:'jewelry', price:210000, old:250000, rating:4.7, reviews:91},
+  {id:15, title:'گوشواره هندسی جفتی', cat:'jewelry', price:135000, old:null, rating:4.2, reviews:38},
+  {id:16, title:'فیجت مکعب بی‌نهایت', cat:'toys', price:75000, old:null, rating:4.6, reviews:184},
+  {id:17, title:'پازل سه‌بعدی چرخ‌دنده', cat:'toys', price:165000, old:null, rating:4.5, reviews:97},
+  {id:18, title:'اژدر فیجت مفصلی', cat:'toys', price:120000, old:140000, rating:4.8, reviews:156},
+  {id:19, title:'آباژور رومیزی موج‌دار', cat:'lighting', price:385000, old:null, rating:4.5, reviews:44},
+  {id:20, title:'چراغ‌خواب طرح لانه‌زنبوری', cat:'lighting', price:295000, old:340000, rating:4.6, reviews:72},
+  {id:21, title:'پایه لامپ استوانه‌ای', cat:'lighting', price:175000, old:null, rating:4.1, reviews:21},
+  {id:22, title:'براکت نگهدارنده دیواری', cat:'tools', price:65000, old:null, rating:4.3, reviews:40},
+  {id:23, title:'یدکی دسته کابینت مدرن', cat:'tools', price:39000, old:null, rating:4.0, reviews:27},
+  {id:24, title:'جعبه ابزار ماژولار', cat:'tools', price:145000, old:175000, rating:4.4, reviews:58}
+];
+
+/* ---------------- STATE ---------------- */
+const state = { category:'all', search:'', price:'all', sort:'popular', cart:{} };
+
+/* ---------------- HELPERS ---------------- */
+const fmt = n => n.toLocaleString('fa-IR') + ' تومان';
+const starStr = r => '★'.repeat(Math.round(r)) + '☆'.repeat(5-Math.round(r));
+
+function mediaTile(cat, offBadge){
+  return `<div class="card-media" style="background:${tintBg(catTint[cat])};color:${catTint[cat]}">
+    ${icons[cat]}
+    ${offBadge ? `<span class="badge-off">${offBadge}٪ تخفیف</span>` : ''}
+  </div>`;
+}
+
+/* ---------------- RENDER: CHIPS + SIDEBAR CATEGORY LIST ---------------- */
+function renderCategoryControls(){
+  const chipRow = document.getElementById('chipRow');
+  const catList = document.getElementById('categoryList');
+  chipRow.innerHTML = categories.map(c =>
+    `<button class="chip ${state.category===c.key?'active':''}" data-cat="${c.key}">${c.label}</button>`
+  ).join('');
+  catList.innerHTML = categories.map(c =>
+    `<label class="radio-line ${state.category===c.key?'active-label':''}">
+      <input type="radio" name="catRadio" value="${c.key}" ${state.category===c.key?'checked':''}>
+      ${c.label}
+    </label>`
+  ).join('');
+
+  chipRow.querySelectorAll('.chip').forEach(btn=>{
+    btn.addEventListener('click', ()=>{ state.category = btn.dataset.cat; renderCategoryControls(); renderGrid(); });
+  });
+  catList.querySelectorAll('input').forEach(inp=>{
+    inp.addEventListener('change', ()=>{ state.category = inp.value; renderCategoryControls(); renderGrid(); });
+  });
+}
+
+/* ---------------- RENDER: GRID ---------------- */
+function getFiltered(){
+  let list = products.filter(p=>{
+    if(state.category!=='all' && p.cat!==state.category) return false;
+    if(state.search && !p.title.includes(state.search)) return false;
+    if(state.price!=='all'){
+      const [min,max] = state.price.split('-').map(Number);
+      if(p.price < min || p.price > max) return false;
+    }
+    return true;
+  });
+  if(state.sort==='cheap') list.sort((a,b)=>a.price-b.price);
+  else if(state.sort==='expensive') list.sort((a,b)=>b.price-a.price);
+  else if(state.sort==='discount') list.sort((a,b)=>{
+    const da = a.old ? (a.old-a.price)/a.old : 0;
+    const db = b.old ? (b.old-b.price)/b.old : 0;
+    return db-da;
+  });
+  else list.sort((a,b)=>b.reviews-a.reviews);
+  return list;
+}
+
+function renderGrid(){
+  const grid = document.getElementById('productGrid');
+  const list = getFiltered();
+  document.getElementById('resultsCount').innerHTML = `<b>${list.length.toLocaleString('fa-IR')}</b> کالا پیدا شد`;
+
+  if(list.length===0){
+    grid.innerHTML = `<div class="empty-state">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+      <div>کالایی با این مشخصات پیدا نشد</div>
+    </div>`;
+    return;
+  }
+
+  grid.innerHTML = list.map(p=>{
+    const off = p.old ? Math.round((p.old-p.price)/p.old*100) : 0;
+    return `<div class="card">
+      ${mediaTile(p.cat, off>0 ? off.toLocaleString('fa-IR') : null)}
+      <div class="card-cat">${categories.find(c=>c.key===p.cat).label}</div>
+      <div class="card-title">${p.title}</div>
+      <div class="card-rating"><span class="stars">${starStr(p.rating)}</span> (${p.reviews.toLocaleString('fa-IR')})</div>
+      <div class="card-price-row">
+        ${p.old ? `<span class="price-old">${fmt(p.old)}</span>` : ''}
+        <span class="price-now">${fmt(p.price)}</span>
+      </div>
+      <button class="add-btn" data-add="${p.id}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        افزودن به سبد
+      </button>
+    </div>`;
+  }).join('');
+
+  grid.querySelectorAll('[data-add]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = Number(btn.dataset.add);
+      addToCart(id);
+    });
+  });
+}
+
+/* fix badge position bug: recompute using absolute overlay properly */
+function mediaTileFixed(){}
+
+/* ---------------- CART ---------------- */
+function addToCart(id){
+  state.cart[id] = (state.cart[id]||0) + 1;
+  renderCartBadge();
+  renderDrawer();
+  const p = products.find(x=>x.id===id);
+  showToast(`«${p.title}» به سبد اضافه شد`);
+}
+function changeQty(id, delta){
+  if(!state.cart[id]) return;
+  state.cart[id] += delta;
+  if(state.cart[id]<=0) delete state.cart[id];
+  renderCartBadge();
+  renderDrawer();
+}
+function removeItem(id){
+  delete state.cart[id];
+  renderCartBadge();
+  renderDrawer();
+}
+function cartCountTotal(){
+  return Object.values(state.cart).reduce((a,b)=>a+b,0);
+}
+function renderCartBadge(){
+  const count = cartCountTotal();
+  const el = document.getElementById('cartCount');
+  if(count>0){ el.style.display='flex'; el.textContent = count.toLocaleString('fa-IR'); }
+  else el.style.display='none';
+}
+function renderDrawer(){
+  const body = document.getElementById('drawerBody');
+  const foot = document.getElementById('drawerFoot');
+  const ids = Object.keys(state.cart);
+  if(ids.length===0){
+    body.innerHTML = `<div class="drawer-empty">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 6h2l1.6 9.6A2 2 0 0 0 9.6 17.4h7.8a2 2 0 0 0 2-1.7L20.5 9H6.2"/><circle cx="10" cy="21" r="1.4"/><circle cx="17" cy="21" r="1.4"/></svg>
+      <div>سبد خرید شما خالی است</div>
+    </div>`;
+    foot.style.display='none';
+    return;
+  }
+  foot.style.display='block';
+  let subtotal = 0;
+  body.innerHTML = ids.map(id=>{
+    const p = products.find(x=>x.id===Number(id));
+    const qty = state.cart[id];
+    subtotal += p.price*qty;
+    return `<div class="cart-item">
+      <div class="cart-item-media" style="background:${tintBg(catTint[p.cat])};color:${catTint[p.cat]}">${icons[p.cat]}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-title">${p.title}</div>
+        <div class="cart-item-price">${fmt(p.price)}</div>
+        <div class="qty-row">
+          <button class="qty-btn" data-dec="${p.id}">−</button>
+          <span class="qty-val">${qty.toLocaleString('fa-IR')}</span>
+          <button class="qty-btn" data-inc="${p.id}">+</button>
+        </div>
+      </div>
+      <button class="remove-btn" data-remove="${p.id}">حذف</button>
+    </div>`;
+  }).join('');
+
+  document.getElementById('sumItems').textContent = fmt(subtotal);
+  document.getElementById('sumTotal').textContent = fmt(subtotal);
+
+  body.querySelectorAll('[data-inc]').forEach(b=>b.addEventListener('click',()=>changeQty(Number(b.dataset.inc),1)));
+  body.querySelectorAll('[data-dec]').forEach(b=>b.addEventListener('click',()=>changeQty(Number(b.dataset.dec),-1)));
+  body.querySelectorAll('[data-remove]').forEach(b=>b.addEventListener('click',()=>removeItem(Number(b.dataset.remove))));
+}
+
+/* ---------------- DRAWER TOGGLE ---------------- */
+const overlay = document.getElementById('overlay');
+const drawer = document.getElementById('drawer');
+function openDrawer(){ overlay.classList.add('show'); drawer.classList.add('show'); }
+function closeDrawer(){ overlay.classList.remove('show'); drawer.classList.remove('show'); }
+document.getElementById('cartBtn').addEventListener('click', openDrawer);
+document.getElementById('closeDrawer').addEventListener('click', closeDrawer);
+overlay.addEventListener('click', closeDrawer);
+document.getElementById('checkoutBtn').addEventListener('click', ()=>{
+  showToast('این یک نمونه‌ی نمایشی است — در نسخه‌ی واقعی به درگاه پرداخت متصل می‌شود');
+});
+
+/* ---------------- TOAST ---------------- */
+let toastTimer;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 2200);
+}
+
+/* ---------------- FILTER CONTROLS ---------------- */
+document.getElementById('searchInput').addEventListener('input', e=>{
+  state.search = e.target.value.trim();
+  renderGrid();
+});
+document.getElementById('priceFilter').addEventListener('change', e=>{
+  state.price = e.target.value;
+  renderGrid();
+});
+document.getElementById('sortFilter').addEventListener('change', e=>{
+  state.sort = e.target.value;
+  renderGrid();
+});
+
+/* ---------------- INIT ---------------- */
+renderCategoryControls();
+renderGrid();
+renderCartBadge();
+renderDrawer();
+</script>
+</body>
+</html>
